@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>韭菜炒鸡蛋 · 一人食精确食谱</title>
+<!-- SECTION: style -->
+<style>
+:root{
+  --green:#2f7d32;
+  --green-d:#1f5c22;
+  --green-l:#eaf5ea;
+  --yellow:#f5a623;
+  --yellow-l:#fff6e5;
+  --ink:#22301f;
+  --ink-2:#5c6b58;
+  --line:#dfe7dc;
+  --card:#ffffff;
+  --bg:#f6f8f4;
+  --red:#c0392b;
+  --red-l:#fdecea;
+  --radius:14px;
+  --shadow:0 2px 10px rgba(31,92,34,.07);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;
+  font-size:16px;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 64px}
+
+/* SECTION: hero */
+.hero{
+  background:linear-gradient(135deg,#2f7d32 0%,#4a9c4d 55%,#7cb342 100%);
+  color:#fff;
+  padding:34px 20px 26px;
+  border-radius:0 0 26px 26px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  right:-40px;top:-40px;
+  width:190px;height:190px;
+  border-radius:50%;
+  background:rgba(255,255,255,.10);
+}
+.hero-inner{max-width:920px;margin:0 auto;padding:0 4px;position:relative;z-index:1}
+.hero .tag{
+  display:inline-block;
+  background:rgba(255,255,255,.20);
+  border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;
+  border-radius:999px;
+  font-size:13px;
+  letter-spacing:.5px;
+  margin-bottom:12px;
+}
+.hero h1{margin:0 0 8px;font-size:clamp(26px,6vw,36px);font-weight:800;letter-spacing:1px}
+.hero p{margin:0;font-size:15px;opacity:.94;max-width:60ch}
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:10px;
+  margin-top:20px;
+}
+.metric{
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:12px;
+  padding:10px 12px;
+  min-width:0;
+}
+.metric .k{font-size:12px;opacity:.88;display:block}
+.metric .v{font-size:17px;font-weight:700;display:block;margin-top:2px}
+
+/* SECTION: progressbar */
+.progressbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  padding:9px 16px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.progressbar .label{font-size:13px;color:var(--ink-2);white-space:nowrap}
+.bar{flex:1 1 140px;min-width:120px;height:8px;background:var(--green-l);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--yellow),var(--green));border-radius:999px;transition:width .3s ease}
+.progressbar .num{font-size:13px;font-weight:700;color:var(--green);white-space:nowrap}
+.btn-reset{
+  border:1px solid var(--line);background:#fff;color:var(--ink-2);
+  border-radius:999px;padding:5px 14px;font-size:13px;cursor:pointer;
+  min-height:32px;
+}
+.btn-reset:active{background:var(--green-l)}
+
+/* SECTION: section-common */
+section{margin-top:30px}
+.sec-h{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.sec-h .no{
+  width:30px;height:30px;flex:0 0 30px;border-radius:9px;
+  background:var(--green);color:#fff;font-size:14px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.sec-h h2{margin:0;font-size:20px;font-weight:800;letter-spacing:.5px}
+.sec-h .sub{font-size:13px;color:var(--ink-2);margin-left:auto;text-align:right}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:16px;
+}
+
+/* SECTION: unit hint */
+.unit-hint{
+  font-size:13.5px;color:var(--ink-2);margin:0 0 13px;
+  background:var(--green-l);border:1px solid #d7e8d6;border-radius:10px;
+  padding:10px 12px;line-height:1.75;
+}
+.unit-hint b{color:var(--green-d)}
+
+/* SECTION: ingredient table */
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px}
+table{width:100%;border-collapse:collapse;min-width:480px;font-size:15px}
+caption{text-align:left;font-size:13px;color:var(--ink-2);padding:0 0 10px}
+th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--green-l);color:var(--green-d);font-size:13px;font-weight:700;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.amt{font-weight:700;color:var(--green-d);white-space:nowrap;font-variant-numeric:tabular-nums}
+td.note{color:var(--ink-2);font-size:13.5px;min-width:150px}
+.grp td{background:#fbfdfa;font-size:12.5px;font-weight:700;color:var(--ink-2);letter-spacing:.6px;padding:7px 10px}
+.opt{display:inline-block;font-size:11px;background:var(--yellow-l);color:#a06a00;border:1px solid #f2dca8;border-radius:5px;padding:0 5px;margin-left:5px;vertical-align:1px;white-space:nowrap}
+
+/* SECTION: steps */
+.step{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:14px 14px 14px 0;margin-bottom:12px;
+  display:flex;gap:12px;align-items:flex-start;
+  transition:opacity .2s ease,border-color .2s ease;
+}
+.step.done{opacity:.55;border-color:#cfe3cf;background:#fbfdfa}
+.step.done .s-title{text-decoration:line-through}
+.check{
+  flex:0 0 44px;width:44px;height:44px;margin-left:2px;
+  border:2px solid var(--line);border-radius:12px;background:#fff;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:transparent;font-size:20px;font-weight:700;padding:0;
+  transition:all .18s ease;
+}
+.step.done .check{background:var(--green);border-color:var(--green);color:#fff}
+.s-body{flex:1 1 auto;min-width:0}
+.s-head{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.s-idx{
+  flex:0 0 auto;font-size:12px;font-weight:700;color:#fff;background:var(--ink-2);
+  border-radius:6px;padding:1px 7px;margin-top:3px;
+}
+.step.cook .s-idx{background:var(--red)}
+.s-title{font-size:16.5px;font-weight:700;margin:0;flex:1 1 160px;min-width:0}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px}
+.chip{
+  font-size:12px;border-radius:999px;padding:2px 9px;white-space:nowrap;
+  border:1px solid var(--line);background:#f7f9f6;color:var(--ink-2);
+}
+.chip.time{background:var(--yellow-l);border-color:#f2dca8;color:#96660a;font-weight:700}
+.chip.fire{background:var(--red-l);border-color:#f5c6c0;color:var(--red);font-weight:700}
+.chip.fire.none{background:#f2f4f1;border-color:var(--line);color:var(--ink-2);font-weight:600}
+.s-desc{margin:9px 0 0;font-size:14.5px;color:var(--ink)}
+.s-key{
+  margin:10px 0 0;padding:9px 11px;border-left:3px solid var(--yellow);
+  background:var(--yellow-l);border-radius:0 8px 8px 0;font-size:13.5px;color:#7a5200;
+}
+.s-key b{color:#5f3f00}
+.timer-btn{
+  margin-top:10px;border:1px solid var(--green);background:#fff;color:var(--green);
+  border-radius:999px;padding:6px 15px;font-size:13.5px;font-weight:600;cursor:pointer;
+  min-height:36px;
+}
+.timer-btn:active{background:var(--green-l)}
+.timer-btn.running{background:var(--yellow);border-color:var(--yellow);color:#fff}
+.timer-read{
+  display:inline-block;margin-left:10px;font-size:15px;font-weight:700;
+  color:var(--green-d);font-variant-numeric:tabular-nums;vertical-align:middle;
+}
+.timer-read.alert{color:var(--red)}
+
+/* SECTION: tips */
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.tip{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);min-width:0}
+.tip h3{margin:0 0 7px;font-size:15.5px;color:var(--green-d);display:flex;align-items:center;gap:7px}
+.tip h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);flex:0 0 8px}
+.tip p{margin:0;font-size:14px;color:var(--ink-2)}
+
+.fail{width:100%;border-collapse:collapse;font-size:14.5px;min-width:420px}
+.fail th{background:var(--red-l);color:var(--red)}
+.fail td:first-child{font-weight:600;color:var(--ink);width:38%}
+
+/* SECTION: nutrition */
+.nutri{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
+.nbox{background:var(--green-l);border-radius:11px;padding:12px;text-align:center;min-width:0}
+.nbox .v{font-size:21px;font-weight:800;color:var(--green-d);display:block;font-variant-numeric:tabular-nums}
+.nbox .k{font-size:12.5px;color:var(--ink-2);display:block;margin-top:2px}
+.src{font-size:12.5px;color:var(--ink-2);margin:10px 0 0;padding-top:10px;border-top:1px dashed var(--line)}
+.src a{color:var(--green);word-break:break-all}
+.src ul{margin:6px 0 0;padding-left:20px}
+.src li{margin-bottom:3px}
+
+/* SECTION: toolbar */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.toolbar button{
+  flex:1 1 160px;min-height:48px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;
+  border:1.5px solid var(--green);background:var(--green);color:#fff;
+}
+.toolbar button.ghost{background:#fff;color:var(--green)}
+.toolbar button:active{transform:translateY(1px)}
+.foot{text-align:center;font-size:12.5px;color:var(--ink-2);margin-top:26px;line-height:1.9}
+
+@media (max-width:560px){
+  .hero{padding:26px 16px 22px;border-radius:0 0 20px 20px}
+  .wrap{padding:0 12px 48px}
+  .card{padding:13px}
+  .sec-h .sub{display:none}
+  .step{padding:12px 12px 12px 0;gap:9px}
+  .check{flex:0 0 38px;width:38px;height:38px;font-size:17px}
+  .s-title{font-size:15.5px;flex:1 1 100%}
+  table{font-size:14px}
+  th,td{padding:9px 8px}
+}
+@media print{
+  body{background:#fff;font-size:12px}
+  .progressbar,.toolbar,.timer-btn,.btn-reset,.check{display:none!important}
+  .hero{background:#2f7d32!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:0}
+  .step,.card,.tip{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+  section{margin-top:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- SECTION: hero -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="tag">一人食 · 精确配比 · 全程 13 分 50 秒</span>
+    <h1>韭菜炒鸡蛋</h1>
+    <p>克重与秒数全部量化，燃气灶 + 28cm 炒锅标准。核心口诀：韭菜彻底沥干、蛋液七八成熟先盛出、韭菜入锅到出锅不超过 25 秒。</p>
+    <div class="metrics">
+      <div class="metric"><span class="k">份量</span><span class="v">1 人份</span></div>
+      <div class="metric"><span class="k">备菜时间</span><span class="v">11 分 30 秒</span></div>
+      <div class="metric"><span class="k">炒制时间</span><span class="v">2 分 20 秒</span></div>
+      <div class="metric"><span class="k">难度</span><span class="v">初级</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- SECTION: progressbar -->
+<div class="progressbar">
+  <span class="label">制作进度</span>
+  <div class="bar"><i id="bar-fill"></i></div>
+  <span class="num" id="bar-num">0 / 10</span>
+  <button class="btn-reset" id="btn-reset" type="button">重置</button>
+</div>
+
+<div class="wrap">
+
+<!-- SECTION: ingredients -->
+<section id="ingredients">
+  <div class="sec-h">
+    <span class="no">1</span>
+    <h2>食材清单（精确克重）</h2>
+    <span class="sub">一人份固定用量</span>
+  </div>
+
+  <p class="unit-hint"><b>家用换算基准：</b>1 汤匙 ≈ 15ml 油 ≈ 12g；1 茶匙 ≈ 5ml；1 啤酒瓶盖平装盐 ≈ 4g；中等鸡蛋 1 个 ≈ 50g 蛋液（带壳约 60g）。</p>
+
+  <div class="card">
+    <div class="tbl-scroll">
+      <table>
+        <caption>下表克重为净用量，已扣除损耗（韭菜择洗后按 200g 净重计，需购买约 250g 毛重）。</caption>
+        <thead>
+          <tr><th scope="col">食材</th><th scope="col">精确用量</th><th scope="col">家用换算</th><th scope="col">作用与说明</th></tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="4">主料</td></tr>
+          <tr>
+            <td>韭菜（净重）</td>
+            <td class="amt"><span class="amt-num" data-base="200" data-dec="0">200</span> g</td>
+            <td>1 小把，约 15 根</td>
+            <td class="note">选窄叶细嫩的春韭更香；粗梗需拍松。梗与叶分开切、分开下锅。</td>
+          </tr>
+          <tr>
+            <td>鸡蛋</td>
+            <td class="amt"><span class="amt-num" data-base="150" data-dec="0">150</span> g<br><span style="font-weight:600;font-size:13px;color:#5c6b58">（<span class="amt-num" data-base="3" data-dec="0">3</span> 个）</span></td>
+            <td>3 个中等鸡蛋</td>
+            <td class="note">蛋液 : 韭菜 ≈ 3 : 4 是家常主流比例；喜蛋香浓可增至 4 个（200g）。</td>
+          </tr>
+
+          <tr class="grp"><td colspan="4">油脂</td></tr>
+          <tr>
+            <td>食用油（滑蛋用）</td>
+            <td class="amt"><span class="amt-num" data-base="12" data-dec="0">12</span> g</td>
+            <td>1 汤匙</td>
+            <td class="note">花生油或玉米油，香气清淡不抢味。</td>
+          </tr>
+          <tr>
+            <td>食用油（炒韭菜用）</td>
+            <td class="amt"><span class="amt-num" data-base="6" data-dec="0">6</span> g</td>
+            <td>半汤匙</td>
+            <td class="note">合计用油 18g，比常见家常做法（30g 左右）减四成，口感仍够润。</td>
+          </tr>
+          <tr>
+            <td>香油 <span class="opt">可选</span></td>
+            <td class="amt"><span class="amt-num" data-base="2" data-dec="0">2</span> ml</td>
+            <td>3–4 滴</td>
+            <td class="note">关火后淋入增香，不可下锅炒，高温会发苦。</td>
+          </tr>
+
+          <tr class="grp"><td colspan="4">调味</td></tr>
+          <tr>
+            <td>盐（入蛋液）</td>
+            <td class="amt"><span class="amt-num" data-base="1" data-dec="1">1.0</span> g</td>
+            <td>约 1/5 茶匙</td>
+            <td class="note">先给蛋液底味，同时让蛋白更紧实。</td>
+          </tr>
+          <tr>
+            <td>盐（炒韭菜）</td>
+            <td class="amt"><span class="amt-num" data-base="1" data-dec="1">1.0</span> g</td>
+            <td>约 1/5 茶匙</td>
+            <td class="note">必须出锅前 5 秒放。过早放盐会让韭菜脱水出汤、颜色发黄。</td>
+          </tr>
+          <tr>
+            <td>清水或料酒（入蛋液）</td>
+            <td class="amt"><span class="amt-num" data-base="5" data-dec="0">5</span> ml</td>
+            <td>1 茶匙</td>
+            <td class="note">让炒蛋蓬松嫩滑；料酒去腥，清水则蛋香更纯。</td>
+          </tr>
+          <tr>
+            <td>白胡椒粉</td>
+            <td class="amt"><span class="amt-num" data-base="0.3" data-dec="1">0.3</span> g</td>
+            <td>一小撮（两指捏）</td>
+            <td class="note">提香去腥，用量以不抢韭菜清香为限。</td>
+          </tr>
+          <tr>
+            <td>玉米淀粉 <span class="opt">可选</span></td>
+            <td class="amt"><span class="amt-num" data-base="2" data-dec="0">2</span> g</td>
+            <td>半茶匙</td>
+            <td class="note">配 5ml 凉白开调成水淀粉入蛋液，鸡蛋更嫩、不易散碎。</td>
+          </tr>
+
+          <tr class="grp"><td colspan="4">清洗用（不计入成菜）</td></tr>
+          <tr>
+            <td>食盐（泡洗用）</td>
+            <td class="amt"><span class="amt-num" data-base="3" data-dec="0">3</span> g</td>
+            <td>半茶匙</td>
+            <td class="note">配 1L 清水成淡盐水，泡出叶缝泥沙与残留。</td>
+          </tr>
+          <tr>
+            <td>清水（泡洗用）</td>
+            <td class="amt">1000 ml</td>
+            <td>约 4 碗</td>
+            <td class="note">浸泡后需换清水冲洗两遍至水清。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: steps -->
+<section id="steps">
+  <div class="sec-h">
+    <span class="no">2</span>
+    <h2>制作流程（分阶段计时）</h2>
+    <span class="sub">点击左侧方框打勾，点时长可倒计时</span>
+  </div>
+
+  <div id="step-list">
+
+    <article class="step prep" data-step="1" data-seconds="300">
+      <button class="check" type="button" aria-label="完成第1步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 1</span>
+          <h3 class="s-title">淡盐水浸泡韭菜</h3>
+          <div class="chips">
+            <span class="chip time">5 分 00 秒</span>
+            <span class="chip fire none">无火</span>
+          </div>
+        </div>
+        <p class="s-desc">切掉根部约 1cm 的老硬部分，摘去黄叶。1L 清水加 3g 盐化开，韭菜整把浸入，浸泡 5 分钟，然后换清水冲洗两遍至水变清澈。</p>
+        <p class="s-key"><b>为什么泡：</b>韭菜叶缝藏泥沙，淡盐水比直接冲洗干净得多；5 分钟是上限，泡久了会流失风味并吸水。</p>
+      </div>
+    </article>
+
+    <article class="step prep" data-step="2" data-seconds="180">
+      <button class="check" type="button" aria-label="完成第2步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 2</span>
+          <h3 class="s-title">彻底沥干并吸干水分</h3>
+          <div class="chips">
+            <span class="chip time">3 分 00 秒</span>
+            <span class="chip fire none">无火</span>
+          </div>
+        </div>
+        <p class="s-desc">捞出后先甩干，摊在沥水篮或厨房纸上静置 2 分钟，再用厨房纸逐层按压吸干表面与叶腋处的水。</p>
+        <p class="s-key"><b>全菜最关键一步：</b>带水下锅 = 一定出汤、软塌、发黄。宁可多花 1 分钟吸干，也别跳过。摸上去叶片不粘手才算合格。</p>
+      </div>
+    </article>
+
+    <article class="step prep" data-step="3" data-seconds="120">
+      <button class="check" type="button" aria-label="完成第3步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 3</span>
+          <h3 class="s-title">切段，梗叶分盘</h3>
+          <div class="chips">
+            <span class="chip time">2 分 00 秒</span>
+            <span class="chip fire none">无火</span>
+          </div>
+        </div>
+        <p class="s-desc">白色梗部斜切成 5mm 小段，绿色叶部切成 3–4cm 长段，<b>分别装两个盘子</b>。切好后可在韭菜上拌入 2g 食用油轻轻翻匀。</p>
+        <p class="s-key"><b>为什么分盘：</b>梗耐热、叶易老，同时下锅必然一生一烂。拌一层薄油能在表面形成油膜，锁住水分、减少下锅后出水。</p>
+      </div>
+    </article>
+
+    <article class="step prep" data-step="4" data-seconds="90">
+      <button class="check" type="button" aria-label="完成第4步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 4</span>
+          <h3 class="s-title">调制蛋液</h3>
+          <div class="chips">
+            <span class="chip time">1 分 30 秒</span>
+            <span class="chip fire none">无火</span>
+          </div>
+        </div>
+        <p class="s-desc">3 个鸡蛋打入无水无油的碗，加 1g 盐、5ml 清水（或料酒）、0.3g 白胡椒粉；如用淀粉，先把 2g 玉米淀粉与 5ml 凉白开调匀再倒入。用筷子<b>朝同一方向</b>快速搅打 60–90 秒，打到表面出现一层细密小泡、挑起来呈连续细流。</p>
+        <p class="s-key"><b>判断标准：</b>起泡 = 空气打进去了，炒出来才蓬松。来回乱搅打不进空气，蛋会偏实偏柴。打好后静置 2 分钟更入味去腥。</p>
+      </div>
+    </article>
+
+    <article class="step cook" data-step="5" data-seconds="60">
+      <button class="check" type="button" aria-label="完成第5步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 5</span>
+          <h3 class="s-title">烧锅滑油（热锅凉油）</h3>
+          <div class="chips">
+            <span class="chip time">1 分 00 秒</span>
+            <span class="chip fire">中火</span>
+          </div>
+        </div>
+        <p class="s-desc">空锅置中火烧 50–60 秒至锅面微微冒烟，倒入 12g 油，转锅让油润满锅底与锅壁下半部，随即把火调到中大火。</p>
+        <p class="s-key"><b>为什么热锅凉油：</b>锅体先烧透再下油，能形成物理不粘层，鸡蛋不粘锅、不碎散。电磁炉参考 1800W 档位。</p>
+      </div>
+    </article>
+
+    <article class="step cook" data-step="6" data-seconds="50">
+      <button class="check" type="button" aria-label="完成第6步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 6</span>
+          <h3 class="s-title">滑炒鸡蛋至七八成熟</h3>
+          <div class="chips">
+            <span class="chip time">50 秒</span>
+            <span class="chip fire">中大火</span>
+          </div>
+        </div>
+        <p class="s-desc">油温升到六成热（约 180℃，筷子插入油中周围立刻泛起细密小泡）时倒入蛋液。<b>先静置 20 秒不动</b>让底部定型，再用锅铲从边缘向中心推成大块，炒约 30 秒至表面仍带湿润光泽、约七八成熟，立刻盛出到盘中备用。</p>
+        <p class="s-key"><b>别炒全熟：</b>鸡蛋八九成熟就要出锅，余温会继续加热。炒到全熟再回锅，第二次加热就老了、柴了。盛出后不要盖盖子，闷着会出水变韧。</p>
+      </div>
+    </article>
+
+    <article class="step cook" data-step="7" data-seconds="10">
+      <button class="check" type="button" aria-label="完成第7步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 7</span>
+          <h3 class="s-title">补油爆炒韭菜梗</h3>
+          <div class="chips">
+            <span class="chip time">10 秒</span>
+            <span class="chip fire">大火</span>
+          </div>
+        </div>
+        <p class="s-desc">锅内补 6g 油，大火烧至八成热（约 220℃，油面波动明显、略有青烟），下韭菜梗，快速翻炒 10 秒至梗部边缘微微透明。</p>
+        <p class="s-key"><b>油温必须够高：</b>锅气不足时韭菜是"焖熟"而非"炒熟"，一定出水。听到下锅瞬间有响亮的"刺啦"声才算合格。</p>
+      </div>
+    </article>
+
+    <article class="step cook" data-step="8" data-seconds="10">
+      <button class="check" type="button" aria-label="完成第8步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 8</span>
+          <h3 class="s-title">下韭菜叶快炒断生</h3>
+          <div class="chips">
+            <span class="chip time">10 秒</span>
+            <span class="chip fire">大火</span>
+          </div>
+        </div>
+        <p class="s-desc">倒入韭菜叶，颠锅或快速翻拌 10 秒，炒到叶片刚刚微软、颜色转为鲜亮翠绿、香气冲鼻即可。</p>
+        <p class="s-key"><b>状态判断：</b>叶子由"挺立"变"轻垂"就是断生。还带脆感最好，软塌就说明已经过火。</p>
+      </div>
+    </article>
+
+    <article class="step cook" data-step="9" data-seconds="5">
+      <button class="check" type="button" aria-label="完成第9步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 9</span>
+          <h3 class="s-title">加盐 + 鸡蛋回锅合炒</h3>
+          <div class="chips">
+            <span class="chip time">5 秒</span>
+            <span class="chip fire">大火</span>
+          </div>
+        </div>
+        <p class="s-desc">撒入 1g 盐翻两下，立刻倒回鸡蛋，颠锅或用铲子轻推翻匀 5 秒，让蛋块裹上韭菜香气即可。</p>
+        <p class="s-key"><b>时间红线：</b>从阶段 7 韭菜入锅算起，到这一步出锅总共只有 25 秒。超过 40 秒韭菜必出水发黄。盐最后放也是同一个道理——减少渗透脱水。</p>
+      </div>
+    </article>
+
+    <article class="step cook" data-step="10" data-seconds="5">
+      <button class="check" type="button" aria-label="完成第10步">✓</button>
+      <div class="s-body">
+        <div class="s-head">
+          <span class="s-idx">阶段 10</span>
+          <h3 class="s-title">关火出锅装盘</h3>
+          <div class="chips">
+            <span class="chip time">即刻</span>
+            <span class="chip fire none">关火余温</span>
+          </div>
+        </div>
+        <p class="s-desc">关火，沿锅边淋 2ml 香油，装盘。<b>盘子提前备好放在灶边</b>，不要在锅里停留——余温会继续把韭菜焖黄。</p>
+        <p class="s-key"><b>成品标准：</b>盘底几乎无汤汁，鸡蛋金黄成块不碎，韭菜翠绿挺立、入口脆嫩。配一碗米饭即可。</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- SECTION: timing summary -->
+<section id="timeline">
+  <div class="sec-h">
+    <span class="no">3</span>
+    <h2>时间总表</h2>
+    <span class="sub">全程 13 分 50 秒</span>
+  </div>
+  <div class="card">
+    <div class="tbl-scroll">
+      <table class="fail">
+        <thead><tr><th scope="col">阶段</th><th scope="col">时长</th><th scope="col">火候</th><th scope="col">累计</th></tr></thead>
+        <tbody>
+          <tr><td>1 浸泡韭菜</td><td>5 分 00 秒</td><td>无火</td><td>5:00</td></tr>
+          <tr><td>2 沥干吸干</td><td>3 分 00 秒</td><td>无火</td><td>8:00</td></tr>
+          <tr><td>3 切段分盘</td><td>2 分 00 秒</td><td>无火</td><td>10:00</td></tr>
+          <tr><td>4 调蛋液</td><td>1 分 30 秒</td><td>无火</td><td>11:30</td></tr>
+          <tr><td>5 烧锅滑油</td><td>1 分 00 秒</td><td>中火</td><td>12:30</td></tr>
+          <tr><td>6 滑炒鸡蛋</td><td>50 秒</td><td>中大火</td><td>13:20</td></tr>
+          <tr><td>7 炒韭菜梗</td><td>10 秒</td><td>大火</td><td>13:30</td></tr>
+          <tr><td>8 炒韭菜叶</td><td>10 秒</td><td>大火</td><td>13:40</td></tr>
+          <tr><td>9 调味合炒</td><td>5 秒</td><td>大火</td><td>13:45</td></tr>
+          <tr><td>10 出锅装盘</td><td>5 秒</td><td>关火</td><td>13:50</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="s-key" style="margin-top:14px"><b>提效建议：</b>阶段 1–2 的浸泡沥干可与阶段 4 调蛋液并行操作，实际全程可压缩到 9 分钟左右；但炒制的 5 个阶段（阶段 6–10）必须连续、不可中断，总计仅 1 分 20 秒，开炒前请把所有食材和盘子都摆到灶边。</p>
+  </div>
+</section>
+
+<!-- SECTION: tips -->
+<section id="tips">
+  <div class="sec-h">
+    <span class="no">4</span>
+    <h2>关键技巧</h2>
+  </div>
+  <div class="tip-grid">
+    <div class="tip"><h3><span class="dot"></span>不出水的三个前提</h3><p>① 韭菜彻底吸干水分；② 切段后拌 2g 油形成油膜；③ 全程大火、油温八成热下锅。三条缺一不可。</p></div>
+    <div class="tip"><h3><span class="dot"></span>先炒蛋还是先炒韭菜</h3><p>主流做法是先滑蛋盛出、再炒韭菜、最后回锅合炒。若直接把生蛋液倒进韭菜里同炒，韭菜会先出水把蛋煮老。</p></div>
+    <div class="tip"><h3><span class="dot"></span>油温的土办法</h3><p>六成热（滑蛋）：木筷子插入油中，周围立刻冒细密小泡。八成热（炒韭菜）：油面明显波动、锅边略有青烟。</p></div>
+    <div class="tip"><h3><span class="dot"></span>盐分两次放</h3><p>1g 进蛋液做底味，1g 在出锅前 5 秒撒入。总盐量 2g，符合每人每餐的清淡标准，也避免韭菜提前脱水。</p></div>
+    <div class="tip"><h3><span class="dot"></span>选韭菜</h3><p>窄叶细叶品种香味更浓；根部切口湿润、叶片挺立无黄尖为新鲜。粗梗可用刀背轻拍松再切，更易熟。</p></div>
+    <div class="tip"><h3><span class="dot"></span>开炒前把灶台摆好</h3><p>一人份炒制仅 1 分 20 秒，中途没有取物的余地。蛋液碗、梗盘、叶盘、盐、装菜盘提前一字排在灶边，锅铲放手边，开火后只管盯锅。</p></div>
+  </div>
+</section>
+
+<!-- SECTION: troubleshooting -->
+<section id="trouble">
+  <div class="sec-h">
+    <span class="no">5</span>
+    <h2>失败排查</h2>
+  </div>
+  <div class="card">
+    <div class="tbl-scroll">
+      <table class="fail">
+        <thead><tr><th scope="col">出现的问题</th><th scope="col">原因与下次修正</th></tr></thead>
+        <tbody>
+          <tr><td>盘底一堆水，菜泡在汤里</td><td>韭菜没吸干就下锅，或火力不够变成焖煮。下次务必用厨房纸按压吸干，并把锅烧到冒烟再下油。</td></tr>
+          <tr><td>韭菜发黄、软塌无脆感</td><td>炒制超过 25 秒，或盐放太早。下次掐表操作，盐只在出锅前 5 秒放。</td></tr>
+          <tr><td>鸡蛋又老又柴</td><td>炒到全熟才盛出，回锅二次加热过头。下次七八成熟（表面还湿润）就盛出。</td></tr>
+          <tr><td>鸡蛋碎成渣、不成块</td><td>蛋液下锅就翻动，底部未定型。下次静置 20 秒再推，且用推的方式而非乱炒。</td></tr>
+          <tr><td>鸡蛋粘锅铲不下来</td><td>锅没烧透就下油。下次空锅烧到微微冒烟再倒油（热锅凉油）。</td></tr>
+          <tr><td>整体偏淡没味道</td><td>盐只在蛋液里放了。下次分两次投放，并在出锅前尝一口再决定是否补 0.5g。</td></tr>
+          <tr><td>韭菜有生涩辛辣味</td><td>梗部未炒够时间。下次梗先下锅 10 秒再放叶，粗梗提前拍松。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: nutrition -->
+<section id="nutrition">
+  <div class="sec-h">
+    <span class="no">6</span>
+    <h2>营养估算（1 人份）</h2>
+  </div>
+  <div class="card">
+    <div class="nutri">
+      <div class="nbox"><span class="v">≈ 430</span><span class="k">千卡 热量</span></div>
+      <div class="nbox"><span class="v">≈ 22 g</span><span class="k">蛋白质</span></div>
+      <div class="nbox"><span class="v">≈ 33 g</span><span class="k">脂肪</span></div>
+      <div class="nbox"><span class="v">≈ 2.8 g</span><span class="k">膳食纤维</span></div>
+    </div>
+    <p style="margin:0;font-size:14px;color:#5c6b58">计算口径：韭菜 200g × 26 kcal/100g = 52 kcal；鸡蛋 150g × 139 kcal/100g = 209 kcal；食用油 18g × 9 kcal/g = 162 kcal；料酒 5ml ≈ 5 kcal。蛋白质按 6g/个鸡蛋 × 3 加韭菜少量估算。膳食纤维按韭菜 1.4g/100g × 200g 计算。数值为估算，实际随食材与操作浮动。</p>
+    <div class="src">
+      <b>主要数据来源（公开网络检索，2026-11-08）：</b>
+      <ul>
+        <li>配比与热量口径 — <a href="https://wjw.beijing.gov.cn/bmfw_20143/jkzs/jksh/202602/t20260205_4492534.html" target="_blank" rel="noopener">北京市卫生健康委员会：立春话韭菜（北京妇产医院营养师）</a></li>
+        <li>一人食用料 3 蛋 + 韭菜 200g — <a href="https://mpartner.xiachufang.com/recipe/107755102/" target="_blank" rel="noopener">下厨房：韭菜炒鸡蛋（一人食）</a></li>
+        <li>盐 2g 与分步火候 — <a href="https://www.jucanw.com/xcms/47504.html" target="_blank" rel="noopener">聚餐网：韭菜炒鸡蛋好吃的做法</a></li>
+        <li>韭菜入锅到出锅不超过 25 秒 — <a href="https://m.douguo.com/recipe/imgs/1474792" target="_blank" rel="noopener">豆果美食：韭菜炒鸡蛋的做法</a></li>
+        <li>梗叶分切、水淀粉嫩蛋、七八成熟盛出 — <a href="https://mp.weixin.qq.com/s?__biz=MzU3NDc2NjkwMA==&idx=1&mid=2247548080&sn=405087b6193dc2b2a35c212637471bf8" target="_blank" rel="noopener">3 个鸡蛋 1 把韭菜，家常韭菜炒鸡蛋</a></li>
+        <li>油温六七成热判断、韭菜快炒 30 秒、电磁炉 1800W — <a href="https://care.fh21.com.cn/view/8198348.html" target="_blank" rel="noopener">复禾健康：鸡蛋和韭菜怎么炒好吃</a></li>
+        <li>韭菜 26 kcal/100g、膳食纤维 1.4g/100g、鸡蛋约 50g 含 6g 蛋白 — <a href="https://www.pingguolv.com/sl/jiucai/215929.html" target="_blank" rel="noopener">苹果绿养生网：韭菜鸡蛋的适宜摄入量</a></li>
+      </ul>
+      <p style="margin:8px 0 0">注：网络菜谱在"先炒蛋还是先炒韭菜"上存在不同说法，本页采用较多数来源支持的"先滑蛋盛出再炒韭菜"流程。营养数据为公开来源估算值，不构成医学或营养处方；如需严格控制钠或胆固醇摄入，请咨询专业营养师。</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: toolbar -->
+<div class="toolbar">
+  <button type="button" id="btn-print">打印 / 存为 PDF</button>
+  <button type="button" class="ghost" id="btn-top">回到顶部</button>
+</div>
+
+<p class="foot">
+  韭菜炒鸡蛋 · 一人食精确食谱<br>
+  基准器具：家用燃气灶 + 直径 28cm 炒锅 + 木质锅铲<br>
+  勾选进度与倒计时状态仅保存在当前浏览器本地，不上传任何数据
+</p>
+
+</div>
+
+<!-- SECTION: script -->
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 步骤勾选与进度 ---------- */
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var total = steps.length;
+  var barFill = document.getElementById('bar-fill');
+  var barNum = document.getElementById('bar-num');
+  var STORAGE_KEY = 'jccStepsDone';
+
+  function loadDone(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw){ return {}; }
+      var obj = JSON.parse(raw);
+      return (obj && typeof obj === 'object') ? obj : {};
+    }catch(e){ return {}; }
+  }
+  function saveDone(map){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(map)); }catch(e){}
+  }
+
+  var doneMap = loadDone();
+
+  function refreshProgress(){
+    var count = 0;
+    for(var i=0;i<steps.length;i++){
+      if(steps[i].classList.contains('done')){ count++; }
+    }
+    var pct = total > 0 ? (count / total * 100) : 0;
+    if(barFill){ barFill.style.width = pct + '%'; }
+    if(barNum){ barNum.textContent = count + ' / ' + total; }
+  }
+
+  function setStepDone(stepEl, isDone){
+    var id = stepEl.getAttribute('data-step');
+    if(isDone){
+      stepEl.classList.add('done');
+      doneMap[id] = true;
+    }else{
+      stepEl.classList.remove('done');
+      delete doneMap[id];
+    }
+    saveDone(doneMap);
+    refreshProgress();
+  }
+
+  for(var s=0;s<steps.length;s++){
+    (function(stepEl){
+      var id = stepEl.getAttribute('data-step');
+      if(doneMap[id]){ stepEl.classList.add('done'); }
+
+      var checkBtn = stepEl.querySelector('.check');
+      if(checkBtn){
+        checkBtn.addEventListener('click', function(){
+          setStepDone(stepEl, !stepEl.classList.contains('done'));
+        });
+      }
+    })(steps[s]);
+  }
+  refreshProgress();
+
+  var resetBtn = document.getElementById('btn-reset');
+  if(resetBtn){
+    resetBtn.addEventListener('click', function(){
+      for(var i=0;i<steps.length;i++){
+        steps[i].classList.remove('done');
+      }
+      doneMap = {};
+      saveDone(doneMap);
+      refreshProgress();
+      stopAllTimers();
+    });
+  }
+
+  /* ---------- 阶段倒计时 ---------- */
+  var timers = {};
+
+  function pad2(n){ return (n < 10 ? '0' : '') + n; }
+  function renderTime(sec){
+    var m = Math.floor(sec / 60);
+    var s = sec % 60;
+    return pad2(m) + ':' + pad2(s);
+  }
+
+  function stopTimer(stepEl){
+    var id = stepEl.getAttribute('data-step');
+    if(timers[id]){
+      clearInterval(timers[id].interval);
+      delete timers[id];
+    }
+    var btn = stepEl.querySelector('.timer-btn');
+    var read = stepEl.querySelector('.timer-read');
+    if(btn){
+      btn.classList.remove('running');
+      btn.textContent = '开始倒计时';
+    }
+    if(read){
+      read.classList.remove('alert');
+      var base = parseInt(stepEl.getAttribute('data-seconds'),10);
+      read.textContent = renderTime(base > 0 ? base : 0);
+    }
+  }
+
+  function stopAllTimers(){
+    for(var i=0;i<steps.length;i++){ stopTimer(steps[i]); }
+  }
+
+  function startTimer(stepEl){
+    var id = stepEl.getAttribute('data-step');
+    if(timers[id]){ stopTimer(stepEl); return; }
+
+    var base = parseInt(stepEl.getAttribute('data-seconds'),10);
+    if(!(base > 0)){ base = 0; }
+    var remain = base;
+
+    var btn = stepEl.querySelector('.timer-btn');
+    var read = stepEl.querySelector('.timer-read');
+    if(!read){ return; }
+
+    read.textContent = renderTime(remain);
+    if(btn){
+      btn.classList.add('running');
+      btn.textContent = '停止';
+    }
+
+    var handle = setInterval(function(){
+      remain--;
+      if(remain <= 0){
+        read.textContent = '时间到';
+        read.classList.add('alert');
+        if(btn){
+          btn.classList.remove('running');
+          btn.textContent = '重新开始';
+        }
+        clearInterval(handle);
+        delete timers[id];
+        if(!stepEl.classList.contains('done')){
+          setStepDone(stepEl, true);
+        }
+        return;
+      }
+      read.textContent = renderTime(remain);
+      if(remain <= 5){ read.classList.add('alert'); }
+    }, 1000);
+
+    timers[id] = { interval: handle };
+  }
+
+  for(var t=0;t<steps.length;t++){
+    (function(stepEl){
+      var seconds = parseInt(stepEl.getAttribute('data-seconds'),10);
+      var chips = stepEl.querySelector('.chips');
+      if(!chips || !(seconds > 0)){ return; }
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'timer-btn';
+      btn.textContent = '开始倒计时';
+
+      var read = document.createElement('span');
+      read.className = 'timer-read';
+      read.textContent = renderTime(seconds);
+
+      var holder = document.createElement('div');
+      holder.appendChild(btn);
+      holder.appendChild(read);
+      stepEl.querySelector('.s-body').appendChild(holder);
+
+      btn.addEventListener('click', function(){ startTimer(stepEl); });
+    })(steps[t]);
+  }
+
+  /* ---------- 工具栏 ---------- */
+  var printBtn = document.getElementById('btn-print');
+  if(printBtn){
+    printBtn.addEventListener('click', function(){
+      stopAllTimers();
+      window.print();
+    });
+  }
+  var topBtn = document.getElementById('btn-top');
+  if(topBtn){
+    topBtn.addEventListener('click', function(){
+      window.scrollTo({ top:0, behavior:'smooth' });
+    });
+  }
+})();
+</script>
+</body>
+</html>

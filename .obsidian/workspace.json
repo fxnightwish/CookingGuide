@@ -1,0 +1,216 @@
+{
+  "main": {
+    "id": "ffceafe9e42c36b4",
+    "type": "split",
+    "children": [
+      {
+        "id": "1343aa6513622135",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f5f4a2f7775883cb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "烹饪绿色蔬菜注意事项.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "烹饪绿色蔬菜注意事项"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "91be4ed9e60d4a6d",
+    "type": "split",
+    "children": [
+      {
+        "id": "083e7c28aa0e3225",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "18025c3811d3974e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "f93a9c040ec70c20",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "fe85f56200f9361c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "4f1d0d43f8c14053",
+    "type": "split",
+    "children": [
+      {
+        "id": "a5931333425c86ba",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dc9de2a20a862813",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "烹饪绿色蔬菜注意事项.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向链接"
+            }
+          },
+          {
+            "id": "9baee2dfc79b99e3",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "烹饪绿色蔬菜注意事项.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "出链"
+            }
+          },
+          {
+            "id": "fbec03e13b9ffb4d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "6d5229c4a53771a1",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "ab3602a904f28f3a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "烹饪绿色蔬菜注意事项.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "f5f4a2f7775883cb",
+  "lastOpenFiles": [
+    "韭菜炒鸡蛋一人食.html",
+    "烹饪绿色蔬菜注意事项.md",
+    "烹饪绿色蔬菜注意事项.md.tmp.27876.1794735554852",
+    "烹饪技法-烧-完全指南.html.tmp.27876.1794735057502",
+    "烹饪技法-烧-完全指南.html.tmp.27876.1794734997188",
+    "烹饪技法-烧-完全指南.html.tmp.27876.1794734972665",
+    "congbao-tofu-hero.png",
+    "embed_images.py",
+    "embed_images.py.tmp.27876.1794734763522",
+    "未命名.md",
+    "vibe_images/炕茄子步骤图_1793696141929_235129f0.png",
+    "未命名",
+    "vibe_images/dry-braised-green-beans_1793697454083_daab38aa.png",
+    "vibe_images/dry-braised-bamboo-shoots_1793697436590_59bba756.png",
+    "vibe_images/congbao-tofu-hero_1793675218555_cf93de17.png",
+    "vibe_images/braised-winter-melon_1793697375410_8e825557.png",
+    "vibe_images/braised-radish_1793697415796_b006af7e.png",
+    "vibe_images/braised-potato_1793697401796_e6250888.png",
+    "vibe_images/braised-eggplant_1793697361248_3170f0d3.png",
+    "vibe_images/炕茄子成品图_1793696124954_9310b338.png",
+    "未命名.base",
+    "哈哈.md",
+    "未命名 1.base"
+  ]
+}
